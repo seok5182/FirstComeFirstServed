@@ -26,7 +26,7 @@ import org.springframework.util.StringUtils;
 @Component
 public class JwtUtil {
 
-	// Header KEY 값(Cookie의 name)
+	// Header KEY 값
 	public static final String AUTHORIZATION_HEADER = "Authorization";
 	// 사용자 권한 값의 KEY
 	public static final String AUTHORIZATION_KEY = "auth";
@@ -51,12 +51,12 @@ public class JwtUtil {
 	}
 
 	// JWT 생성
-	public String createToken(String userId) {
+	public String createToken(Long userId) {
 		Date date = new Date();
 
 		return BEARER_PREFIX +
 			Jwts.builder()
-				.setSubject(userId) // 사용자 식별자값(이메일)
+				.setSubject(String.valueOf(userId)) // 사용자 식별자값(id)
 				.setExpiration(new Date(date.getTime() + TOKEN_TIME)) // 만료 시간
 				.setIssuedAt(date) // 발급일
 				.signWith(key, signatureAlgorithm) // 암호화 알고리즘
@@ -86,6 +86,15 @@ public class JwtUtil {
 		}
 		logger.error("Not Found Token");
 		throw new NullPointerException("Not Found Token");
+	}
+
+	// header 에서 JWT 가져오기
+	public String getJwtFromHeader(HttpServletRequest request) {
+		String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
+			return bearerToken.substring(7);
+		}
+		return null;
 	}
 
 	// JWT 검증
