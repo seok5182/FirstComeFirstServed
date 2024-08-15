@@ -21,4 +21,13 @@ public class SignupRequest {
 
 	@NotEmpty(message = "전화번호를 입력해주세요")
 	private String tel;
+
+	@NotEmpty(message = "우편번호를 입력해주세요")
+	private String zipCode;
+
+	@NotEmpty(message = "주소를 입력해주세요")
+	private String addr1;
+
+	@NotEmpty(message = "상세주소를 입력해주세요")
+	private String addr2;
 }
