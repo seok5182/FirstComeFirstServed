@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,7 +29,7 @@ public class Cart extends Timestamped {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "itemId", nullable = false)
-	private Item item;
+	private Item cartItem;
 
 	@Column(nullable = false)
 	@Positive
@@ -38,7 +37,7 @@ public class Cart extends Timestamped {
 
 	public Cart(User user, Item item, int quantity) {
 		this.user = user;
-		this.item = item;
+		this.cartItem = item;
 		this.quantity = quantity;
 	}
 

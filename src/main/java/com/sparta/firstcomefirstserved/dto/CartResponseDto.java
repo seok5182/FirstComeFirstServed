@@ -20,11 +20,11 @@ public class CartResponseDto {
 	public CartResponseDto(Cart cart) {
 		this.id = cart.getId();
 		this.userId = cart.getUser().getId();
-		this.itemId = cart.getItem().getId();
-		this.name = cart.getItem().getName();
-		this.content = cart.getItem().getContent();
-		this.price = cart.getItem().getPrice();
+		this.itemId = cart.getCartItem().getId();
+		this.name = cart.getCartItem().getName();
+		this.content = cart.getCartItem().getContent();
+		this.price = cart.getCartItem().getPrice();
 		this.quantity = cart.getQuantity();
-		this.deleted = cart.getItem().isDeleted();
+		this.deleted = cart.getCartItem().isDeleted();
 	}
 }
