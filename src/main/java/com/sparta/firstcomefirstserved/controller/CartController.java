@@ -2,8 +2,6 @@ package com.sparta.firstcomefirstserved.controller;
 
 import com.sparta.firstcomefirstserved.dto.CartResponseDto;
 import com.sparta.firstcomefirstserved.entity.Cart;
-import com.sparta.firstcomefirstserved.repository.CartRepository;
-import com.sparta.firstcomefirstserved.repository.ItemRepository;
 import com.sparta.firstcomefirstserved.security.UserDetailsImpl;
 import com.sparta.firstcomefirstserved.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CartController {
 
 	private final CartService cartService;
-	private final ItemRepository itemRepository;
-	private final CartRepository cartRepository;
 
 	// 장바구니 담기
 	// 이미 담겨 있는 상품이면 수량 변경
@@ -103,13 +99,17 @@ public class CartController {
 	) {
 		log.info("장바구니 상품 상세 페이지 - cartId: {}", cartId);
 
-		if (cartRepository.findById(cartId).isEmpty()) {
-			log.warn("장바구니를 확인해주세요");
+		Cart cart;
+
+		try {
+			cart = cartService.getCart(cartId);
+		} catch (Exception e) {
+			if (e.getMessage().equals("NULL")) {
+				log.error("장바구니를 확인해주세요");
+			}
 			return "redirect:/cart/items";
 		}
 
-		Cart cart = cartRepository.findById(cartId).get();
-
-		return "redirect:/items/"+cart.getItem().getId();
+		return "redirect:/items/" + cart.getCartItem().getId();
 	}
 }

@@ -33,7 +33,7 @@ public class CartService {
 			List<Cart> cartList = cartRepository.findAllByUser(user).get();
 
 			for (Cart cart : cartList) {
-				if (cart.getItem().getId().equals(itemId)) {
+				if (cart.getCartItem().getId().equals(itemId)) {
 					cart.update(quantity);
 					return;
 				}
@@ -60,5 +60,11 @@ public class CartService {
 		Page<CartResponseDto> responseDtoList = cartList.map(CartResponseDto::new);
 
 		return responseDtoList;
+	}
+
+	public Cart getCart(Long cartId) {
+
+		return cartRepository.findById(cartId).orElseThrow(() ->
+			new NullPointerException("NULL"));
 	}
 }
