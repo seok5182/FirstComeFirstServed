@@ -1,6 +1,7 @@
 package com.sparta.firstcomefirstserved.configuration;
 
 import java.util.Properties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,9 +10,16 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 public class EmailConfig {
 
+	@Value("${mail.sender.id}")
+	private String id;
+
+	@Value("${mail.sender.password}")
+	private String pw;
+
 	@Bean
 	// JAVA MAILSENDER 인터페이스를 구현한 객체를 빈으로 등록하기 위함.
 	public JavaMailSender mailSender() {
+
 
 		// JavaMailSender의 구현체를 생성
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -22,9 +30,9 @@ public class EmailConfig {
 		// 587로 포트를 지정
 		mailSender.setPort(587);
 		// 구글계정을 넣습니다.
-		mailSender.setUsername("seokkyun5182@gmail.com");
+		mailSender.setUsername(id);
 		// 구글 앱 비밀번호를 넣습니다.
-		mailSender.setPassword("tdszpdkkgpkmtpzh");
+		mailSender.setPassword(pw);
 
 		// JavaMail의 속성을 설정하기 위해 Properties 객체를 생성
 		Properties javaMailProperties = new Properties();

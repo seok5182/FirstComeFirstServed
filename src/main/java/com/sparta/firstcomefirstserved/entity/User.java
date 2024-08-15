@@ -34,14 +34,14 @@ public class User extends Timestamped {
 	private String tel;
 
 	@Column(nullable = false)
-	private String deleted;
+	private boolean deleted;
 
 	public User(String email, String password, String name, String tel) {
 		this.email = email;
 		this.password = password;
 		this.name = name;
 		this.tel = tel;
-		this.deleted = "N";
+		this.deleted = false;
 	}
 
 }

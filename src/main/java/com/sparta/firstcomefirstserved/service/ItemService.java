@@ -20,6 +20,7 @@ public class ItemService {
 		this.itemRepository = itemRepository;
 	}
 
+	// 전체 상품 조회
 	@Transactional(readOnly = true)
 	public Page<ItemResponseDto> getItems(int page, int size, String sortBy, boolean isAsc) {
 		Sort.Direction direction = isAsc ? Sort.Direction.ASC : Direction.DESC;
@@ -35,7 +36,12 @@ public class ItemService {
 		return itemList.map(ItemResponseDto::new);
 	}
 
+	// 상품 상세 조회
 	public ItemResponseDto getItem(Long itemId) {
-		return new ItemResponseDto(itemRepository.findById(itemId));
+		Item item = itemRepository.findById(itemId).orElseThrow(() ->
+			new NullPointerException("해당 상품은 존재하지 않습니다")
+		);
+		return new ItemResponseDto(item);
 	}
+
 }

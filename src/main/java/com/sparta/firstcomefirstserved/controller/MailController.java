@@ -34,7 +34,8 @@ public class MailController {
 		if(isChecked) {
 			return "ok";
 		} else {
-			throw new NullPointerException("인증이 실패했습니다");
+			return "fail";
+			//throw new NullPointerException("인증이 실패했습니다");
 		}
 	}
 }

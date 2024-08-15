@@ -14,7 +14,7 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-		model.addAttribute("email", aes.decrypt_AES(userDetails.getUsername()));
+		model.addAttribute("email", userDetails.getUsername());
 		return "index";
 	}
 }

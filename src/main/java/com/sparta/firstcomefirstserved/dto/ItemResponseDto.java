@@ -23,4 +23,5 @@ public class ItemResponseDto {
 		this.quantity = item.getQuantity();
 		this.deleted = item.isDeleted();
 	}
+
 }
