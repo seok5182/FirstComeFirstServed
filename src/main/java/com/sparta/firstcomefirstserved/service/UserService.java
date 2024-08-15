@@ -2,7 +2,9 @@ package com.sparta.firstcomefirstserved.service;
 
 import com.sparta.firstcomefirstserved.aes256.Aes;
 import com.sparta.firstcomefirstserved.dto.SignupRequest;
+import com.sparta.firstcomefirstserved.entity.Address;
 import com.sparta.firstcomefirstserved.entity.User;
+import com.sparta.firstcomefirstserved.repository.AddressRepository;
 import com.sparta.firstcomefirstserved.repository.UserRepository;
 import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,13 +14,16 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
 	private final UserRepository userRepository;
+	private final AddressRepository addressRepository;
 	private final Aes aes;
 	private final PasswordEncoder passwordEncoder;
 
-	public UserService(UserRepository userRepository, Aes aes, PasswordEncoder passwordEncoder) {
+	public UserService(UserRepository userRepository, Aes aes, PasswordEncoder passwordEncoder,
+		AddressRepository addressRepository) {
 		this.userRepository = userRepository;
 		this.aes = aes;
 		this.passwordEncoder = passwordEncoder;
+		this.addressRepository = addressRepository;
 	}
 
 	public void signup(SignupRequest signupRequest) {
@@ -36,6 +41,9 @@ public class UserService {
 		// 유저 등록
 		User user = new User(email, password, name, tel);
 		userRepository.save(user);
+		// 주소 등록
+		Address address = new Address(user, signupRequest);
+		addressRepository.save(address);
 	}
 
 }
