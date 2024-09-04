@@ -20,6 +20,9 @@ bin/
 ### IntelliJ IDEA ###
 application.properties
 application-dev.properties
+application.yml
+application-dev.yml
+docker-compose.yml
 
 .idea
 *.iws
