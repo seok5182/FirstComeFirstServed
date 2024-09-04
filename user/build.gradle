@@ -27,6 +27,11 @@ dependencies {
     // feign
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     testImplementation 'org.springframework.security:spring-security-test'
+    // Mail
+    implementation 'javax.mail:mail:1.4.7'
+    implementation 'org.springframework:spring-context-support:5.3.9'
+    // redis 추가
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     // security
     implementation 'org.springframework.boot:spring-boot-starter-security'
     // JWT
